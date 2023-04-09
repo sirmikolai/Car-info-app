@@ -37,7 +37,8 @@ exports.addCarModelForBrand = async (req, res, next) => {
         let data = {
             car_brand_id: carBrandId,
             name: jsonObj.name,
-            class: jsonObj.class
+            class: jsonObj.class,
+            number_of_generations: jsonObj.number_of_generations
         };
         let document = new carModel(data);
         await document.save().then((carModelInfo) => res.status(201).send(carModelInfo)).catch((error) => res.status(500).json({
@@ -56,7 +57,8 @@ exports.updateCarModelForBrand = async (req, res, next) => {
     let jsonObj = req.body;
     await carModel.findOneAndUpdate({ _id: id, car_brand_id: carBrandId }, {
         name: jsonObj.name,
-        class: jsonObj.class
+        class: jsonObj.class,
+        number_of_generations: jsonObj.number_of_generations
     }).then(async (carModelInfo) => {
         if (carModelInfo != null) {
             let data = await carModel.findById(id).select({__v: 0});
