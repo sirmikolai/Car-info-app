@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Car info app</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  <script src="/javascripts/bootstrap.js"></script>
+  <style type="text/css">
+    @font-face {
+      font-family: Roboto;
+      src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf");
+    }
+
+    .nav-item {
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body style="overflow-y: scroll;">
+  <header>
+    <div class="bg-dark" id="navbarHeader">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+              <img src="/images/logo-horizontal-navbar.png">
+            </a>
+            <button class="navbar-light navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-light navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <ul class="nav navbar-nav ms-auto">
+                <% if (currentUser) { %>
+                <% if (currentUser.role == 'ADMIN') { %>
+                <li class="nav-item">
+                  <a class="btn btn-light" href="/admin-panel">Admin panel</a>
+                </li>
+                <% } %>
+                <li class="nav-item">
+                  <a class="btn btn-secondary" href="/reset-password-form">Reset password</a>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-danger" href="/sign-out">Sign out</a>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                  <a class="btn btn-primary" href="/sign-in-form">Sign in</a>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-success" href="/sign-up-form">Sign up</a>
+                </li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="text-center">
+    <% if (errorMessage) { %>
+    <div class="row py-lg-2">
+      <div class="col-lg-10 mx-auto">
+        <div class="alert alert-danger" role="alert">
+          <strong>Error!</strong> <%= errorMessage %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <% if (successMessage) { %>
+    <div class="row py-lg-2">
+      <div class="col-lg-10 mx-auto">
+        <div class="alert alert-success" role="alert">
+          <strong>Success!</strong> <%= successMessage %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <%- body %>
+  </main>
+
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+      <% if (currentUser) { %>
+      <li class="nav-item"><a href="/reset-password-form" class="nav-link px-2 text-muted">Reset password</a></li>
+      <li class="nav-item"><a href="/sign-out" class="nav-link px-2 text-muted">Sign out</a></li>
+      <% if (currentUser.role == 'ADMIN') { %>
+      <li class="nav-item"><a href="/admin-panel" class="nav-link px-2 text-muted">Admin panel</a></li>
+      <% } %>
+      <% } else { %>
+      <li class="nav-item"><a href="/sign-in-form" class="nav-link px-2 text-muted">Sign in</a></li>
+      <li class="nav-item"><a href="/sign-up-form" class="nav-link px-2 text-muted">Sign up</a></li>
+      <% } %>
+    </ul>
+    <p class="text-center text-muted">Copyright © Mikołaj Otręba</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+  <section class="text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="text-muted">CAR MODELS</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="text-center h-100 d-flex align-items-center justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= carBrand.logo_url %>" alt="Logo">
+          <div class="card-body">
+            <h5 class="card-title"><%= carBrand.name %></h5>
+          </div>
+        </div>
+      </div>
+      <% if (currentUser) { %>
+      &nbsp;
+      &nbsp;
+      <div class="col-12 content text-center">
+        <a href="/car-brand/<%= carBrand._id %>/car-models/add-form" class="btn btn-success">Add car model</a>
+      </div>
+      <% } %>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Class</th>
+              <th scope="col">Number of generations</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i=0; i < carModels.length; i++) { %>
+            <tr>
+              <td><%= carModels[i].name %></td>
+              <td><%= carModels[i].class %></td>
+              <td><%= carModels[i].number_of_generations %></td>
+              <td>
+                <% if (currentUser) { %>
+                <a class="btn btn-success btn-sm" href="/car-brand/<%= carModels[i].car_brand_id %>/car-models/edit-form/<%= carModels[i]._id %>">Edit car model</a>
+                <a class="btn btn-danger btn-sm" href="/car-brand/<%= carModels[i].car_brand_id %>/car-models/delete/<%= carModels[i]._id %>" onclick="return confirm('Do you want delete this car model?');">Delete car model</a>
+                <% } %>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    &nbsp;
+    &nbsp;
+    <div class="col-12 content text-center">
+      <a href="/" class="btn btn-primary" type="button">Back to previous page</a>
+    </div>

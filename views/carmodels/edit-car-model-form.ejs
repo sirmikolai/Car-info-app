@@ -1,0 +1,83 @@
+<br>
+<div id="car-brand-class" data-car-model-class="<%= carModel.class %>"></div>
+<section class="text-center container">
+  <div class="container">
+    <div class="text-center h-100 d-flex align-items-center justify-content-center">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= carBrand.logo_url %>" alt="Logo">
+        <div class="card-body">
+          <h5 class="card-title"><%= carBrand.name %></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="text-center container" onload="setExpectedClass('<%= carModel.class %>')">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <form action="/car-brand/<%= carBrand._id %>/car-models/edit/<%= carModel._id %>" method="post" class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" value="<%= carModel.name %>" required>
+            <div class="invalid-feedback">
+              Please provide the car model name.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Class</label>
+            <select class="form-select" name="class" required>
+              <option class="class_option" value="City car/A">City car/A</option>
+              <option class="class_option" value="Supermini/B">Supermini/B</option>
+              <option class="class_option" value="Compact car/C">Compact car/C</option>
+              <option class="class_option" value="Mid-size car/D">Mid-size car/D</option>
+              <option class="class_option" value="Executive car/E">Executive car/E</option>
+              <option class="class_option" value="Luxury car/F">Luxury car/F</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select class of the car model.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Number of generations</label>
+            <input type="number" class="form-control" placeholder="Number of generations" name="number_of_generations" value="<%= carModel.number_of_generations %>" required>
+            <div class="invalid-feedback">
+              Please provide the number of generations.
+            </div>
+          </div>
+          <div class="col-md-12">
+            <a href="/car-brand/<%= carBrand._id %>/car-models" class="btn btn-primary" type="button">Back to previous page</a>
+            <button class="btn btn-success" type="submit" onclick="return confirm('Do you want save changes?');">Save changes</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+  (function() {
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+  function setExpectedClass(classOfCar) {
+    var els = document.getElementsByClassName("class_option");
+    Array.from(els).forEach((el) => {
+      if (el.value == classOfCar) {
+        el.setAttribute("selected", "selected");
+      }
+    });
+  }
+  var carBrandClass = document.getElementById('car-brand-class').getAttribute('data-car-model-class');
+  window.addEventListener('load', setExpectedClass(carBrandClass));
+</script>

@@ -1,0 +1,54 @@
+  <section class="text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="text-muted">USERS</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Active</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i=0; i < usersInfo.length; i++) { %>
+            <tr>
+              <td><%= usersInfo[i].email %></td>
+              <td><%= usersInfo[i].role %></td>
+              <td><%= usersInfo[i].active %></td>
+              <td>
+                <% if (usersInfo[i].role == 'ADMIN' || usersInfo[i].email == currentUser.email) { %>
+                <a class="btn btn-success btn-sm disabled" href="/promote-role/<%= usersInfo[i]._id %>">Promote to Admin role</a>
+                <% } else { %>
+                <a class="btn btn-success btn-sm" href="/promote-role/<%= usersInfo[i]._id %>">Promote to Admin role</a>
+                <% } %>
+                <% if (usersInfo[i].role == 'USER' || usersInfo[i].email == currentUser.email) { %>
+                <a class="btn btn-warning btn-sm disabled" href="/demote-role/<%= usersInfo[i]._id %>">Demote to User role</a>
+                <% } else { %>
+                <a class="btn btn-warning btn-sm" href="/demote-role/<%= usersInfo[i]._id %>">Demote to User role</a>
+                <% } %>
+                <% if (usersInfo[i].email == currentUser.email) { %>
+                  <a class="btn btn-danger btn-sm disabled" href="/delete-user/<%= usersInfo[i]._id %>">Delete user</a>
+                <% } else { %>
+                  <a class="btn btn-danger btn-sm" href="/delete-user/<%= usersInfo[i]._id %>">Delete user</a>
+                <% } %>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    &nbsp;
+    &nbsp;
+    <div class="col-12 content text-center">
+      <a href="/" class="btn btn-primary" type="button">Back to previous page</a>
+    </div>

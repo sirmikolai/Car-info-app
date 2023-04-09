@@ -1,0 +1,71 @@
+<br>
+<section class="text-center container">
+  <div class="container">
+    <div class="text-center h-100 d-flex align-items-center justify-content-center">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= carBrand.logo_url %>" alt="Logo">
+        <div class="card-body">
+          <h5 class="card-title"><%= carBrand.name %></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <form action="/car-brand/<%= carBrand._id %>/car-models/add" method="post" class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" required>
+            <div class="invalid-feedback">
+              Please provide the car model name.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Class</label>
+            <select class="form-select" name="class" required>
+              <option value="City car/A">City car/A</option>
+              <option value="Supermini/B">Supermini/B</option>
+              <option value="Compact car/C">Compact car/C</option>
+              <option value="Mid-size car/D">Mid-size car/D</option>
+              <option value="Executive car/E">Executive car/E</option>
+              <option value="Luxury car/F">Luxury car/F</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select class of the car model.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Number of generations</label>
+            <input type="number" class="form-control" placeholder="Number of generations" name="number_of_generations" required>
+            <div class="invalid-feedback">
+              Please provide the number of generations.
+            </div>
+          </div>
+          <div class="col-md-12">
+            <a href="/car-brand/<%= carBrand._id %>/car-models" class="btn btn-primary" type="button">Back to previous page</a>
+            <button class="btn btn-success" type="submit">Add car model</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+  (function() {
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

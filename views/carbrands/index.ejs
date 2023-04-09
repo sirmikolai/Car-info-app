@@ -1,0 +1,45 @@
+<section class="text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="text-muted">CAR BRANDS</h1>
+    </div>
+  </div>
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <% if (currentUser) { %>
+    <div class="col-md-12 text-center">
+      <a href="/car-brand/add-form" class="btn btn-success center">Add car brand</a>
+    </div>
+    <% } %>
+    <br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% for(let i=0; i < carBrands.length; i++) { %>
+      <div class="col">
+        <div class="card shadow-sm">
+          <img class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false" src="<%= carBrands[i].logo_url %>">
+          <title>Placeholder</title>
+          </img>
+
+          <div class="card-body">
+            <p class="card-text"><strong>Name: </strong><%= carBrands[i].name %></p>
+            <p class="card-text"><strong>Founded year: </strong><%= carBrands[i].founded_year %></p>
+            <p class="card-text"><strong>Headquarter: </strong><%= carBrands[i].headquarter.city %>, <%= carBrands[i].headquarter.country %></p>
+            <p class="card-text"><strong>Official site: </strong><a href="https://<%= carBrands[i].official_site %>" target="_blank">Link</a></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="/car-brand/<%= carBrands[i]._id %>/car-models" class="btn btn-sm btn-success">View car models</a>
+                <% if (currentUser) { %>
+                <a href="/car-brand/edit-form/<%= carBrands[i]._id %>" class="btn btn-sm btn-primary">Edit car brand</a>
+                <a href="/car-brand/delete/<%= carBrands[i]._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Do you want delete this car brand?');">Delete car brand</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

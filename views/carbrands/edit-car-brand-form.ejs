@@ -1,0 +1,55 @@
+<section class="text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <form action="/car-brand/edit/<%= carBrand._id %>" method="post" class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" value="<%= carBrand.name %>" required>
+            <div class="invalid-feedback">
+              Please provide the car brand name.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Logo URL</label>
+            <input type="text" class="form-control" placeholder="Logo URL" name="logo_url" value="<%= carBrand.logo_url %>" required>
+            <div class="invalid-feedback">
+              Please provide the logo URL.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Founded year</label>
+            <input type="number" class="form-control" placeholder="Founded year" name="founded_year" value="<%= carBrand.founded_year %>" required>
+            <div class="invalid-feedback">
+              Please provide the found.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Official site</label>
+            <input type="text" class="form-control" placeholder="Official site" name="official_site" value="<%= carBrand.official_site %>" required>
+            <div class="invalid-feedback">
+              Please provide the official site.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Headquarter city</label>
+            <input type="text" class="form-control" placeholder="Headquarter city" name="headquarter_city" value="<%= carBrand.headquarter.city %>" required>
+            <div class="invalid-feedback">
+              Please provide the city of headquarter.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Headquarter country</label>
+            <input type="text" class="form-control" placeholder="Headquarter country" name="headquarter_country" value="<%= carBrand.headquarter.country %>" required>
+            <div class="invalid-feedback">
+              Please provide the country of headquarter.
+            </div>
+          </div>
+          <div class="col-md-12">
+            <a href="/" class="btn btn-primary" type="button">Back to main page</a>
+            <button class="btn btn-success" type="submit" onclick="return confirm('Do you want save changes?');">Save changes</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
