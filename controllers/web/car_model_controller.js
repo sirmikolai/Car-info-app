@@ -42,7 +42,7 @@ exports.addCarModel = async (req, res, next) => {
         }
         let document = new carModel(jsonObj);
         await document.save().then(() => {
-            res.session.successMessage = "Car model has been added."
+            req.session.successMessage = "Car model has been added."
             res.redirect("/car-brand/" + carBrandId + "/car-models");
         });
     }).catch((error) => {
@@ -77,7 +77,7 @@ exports.updateCarModel = async (req, res, next) => {
         number_of_generations: req.body.number_of_generations
     }
     await carModel.findByIdAndUpdate(id, jsonObj).then(async () => {
-        res.session.successMessage = "Car model has been updated."
+        req.session.successMessage = "Car model has been updated."
         res.redirect("/car-brand/" + carBrandId + "/car-models");
     }).catch((error) => {
         next(error);
@@ -88,7 +88,7 @@ exports.deletCarModel = async (req, res, next) => {
     let id = req.params.id;
     let carBrandId = req.params.carBrandId;
     await carModel.findOneAndRemove({ _id: id, car_brand_id: carBrandId }).then(() => {
-        res.session.successMessage = "Car model has been removed."
+        req.session.successMessage = "Car model has been removed."
         res.redirect("/car-brand/" + carBrandId + "/car-models");
     }).catch((error) => {
         next(error);
