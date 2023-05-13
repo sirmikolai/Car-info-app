@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var connection = require('./config/db');
 var expressLayouts = require('express-ejs-layouts');
+var cors = require('cors');
 
 //web routers
 var carBrandWebRouter = require('./routes/web/carBrandWeb');
@@ -41,6 +42,8 @@ app.use(authPassport.getCurrentUser);
 const messages = require('./middlewares/message');
 app.use(messages.getSuccessMessage);
 app.use(messages.getErrorMessage);
+
+app.use(cors());
 
 app.use('/', carBrandWebRouter);
 app.use('/', carModelWebRouter);
