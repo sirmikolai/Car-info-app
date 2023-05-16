@@ -9,6 +9,7 @@ var users = new Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
         validate: {
             validator: emailValidator.validate,
             message: props => `${props.value} is not a valid email address!`,

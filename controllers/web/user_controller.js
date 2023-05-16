@@ -35,23 +35,29 @@ exports.signOut = function (req, res, next) {
 }
 
 exports.signUp = async (req, res, next) => {
-    let token = jwt.sign({ email: req.body.email }, config.secret);
-    var document = new users({
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8),
-        confirmation_code: token
-    });
-    await document.save().then((userInfo) => {
-        nodemailer.sendConfirmationEmailWeb(
-            req.protocol + "://" + req.headers.host,
-            userInfo.email,
-            userInfo.confirmation_code,
-        );
-        req.session.successMessage = "Confirmation email has been sent. Check your spam folder as well just in case.";
-        res.redirect("/")
-    }).catch((error) => {
-        next(error);
-    });
+    userExist = await users.exists({email: req.body.email});
+    if (userExist) {
+        req.session.errorMessage = "There is already registered user with that email";
+        return res.redirect('/sign-up-form');
+    } else {
+        let token = jwt.sign({ email: req.body.email }, config.secret);
+        var document = new users({
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8),
+            confirmation_code: token
+        });
+        await document.save().then((userInfo) => {
+            nodemailer.sendConfirmationEmailWeb(
+                req.protocol + "://" + req.headers.host,
+                userInfo.email,
+                userInfo.confirmation_code,
+            );
+            req.session.successMessage = "Confirmation email has been sent. Check your spam folder as well just in case.";
+            res.redirect("/")
+        }).catch((error) => {
+            next(error);
+        });
+    }
 }
 
 exports.confirmToken = async (req, res, next) => {
