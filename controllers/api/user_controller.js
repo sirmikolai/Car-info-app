@@ -1,3 +1,4 @@
+const { EventEmitter } = require("nodemailer/lib/xoauth2");
 var users = require("../../models/user"),
     bcrypt = require("bcryptjs"),
     jwt = require("jsonwebtoken"),
@@ -62,29 +63,36 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 exports.signUp = async (req, res, next) => {
-    let token = jwt.sign({ email: req.body.email }, config.secret);
-    var document = new users({
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8),
-        confirmation_code: token
-    });
-    await document.save().then((userInfo) => {
-        nodemailer.sendConfirmationEmailRest(
-            req.protocol + "://" + req.headers.host,
-            userInfo.email,
-            userInfo.confirmation_code,
-        );
-        let resJsonObj = {
-            _id: userInfo._id,
-            email: userInfo.email,
-            role: userInfo.role,
-            message: "User was registered successfully! Please check your email to confirm your account."
-        }
-        res.status(201).send(resJsonObj)
-    }).catch((error) => res.status(500).json({
-        message: "Ooops! Something went wrong when creating account",
-        error
-    }));
+    userExist = await users.exists({ email: req.body.email });
+    if (userExist) {
+        res.status(409).json({
+            message: "There is already registered user with that email",
+        });
+    } else {
+        let token = jwt.sign({ email: req.body.email }, config.secret);
+        var document = new users({
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8),
+            confirmation_code: token
+        });
+        await document.save().then((userInfo) => {
+            nodemailer.sendConfirmationEmailRest(
+                req.protocol + "://" + req.headers.host,
+                userInfo.email,
+                userInfo.confirmation_code,
+            );
+            let resJsonObj = {
+                _id: userInfo._id,
+                email: userInfo.email,
+                role: userInfo.role,
+                message: "User was registered successfully! Please check your email to confirm your account."
+            }
+            res.status(201).send(resJsonObj)
+        }).catch((error) => res.status(500).json({
+            message: "Ooops! Something went wrong when creating account",
+            error
+        }));
+    }
 }
 
 exports.signIn = async (req, res, next) => {
@@ -111,7 +119,7 @@ exports.signIn = async (req, res, next) => {
             res.status(401).send({ message: "Invalid credentials" })
         }
     }).catch((error) => res.status(500).json({
-        message: "Ooops! Something went wrong when getting user from DB",
+        message: "There is no any registered user with that email",
         error
     }));
 };
@@ -132,7 +140,7 @@ exports.resetPassword = async (req, res, next) => {
     if (jsonObj.new_password != jsonObj.confirm_new_password) {
         res.status(409).send({ "message": "Passwords are not identical" });
     } else {
-        await users.findOneAndUpdate({ email: jsonObj.email }, { password: bcrypt.hashSync(jsonObj.new_password, 8)}).then(() => {
+        await users.findOneAndUpdate({ email: jsonObj.email }, { password: bcrypt.hashSync(jsonObj.new_password, 8) }).then(() => {
             res.status(204).send()
         }).catch((error) => res.status(500).json({
             message: "Ooops! Something went wrong when getting user from DB",
