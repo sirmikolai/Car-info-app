@@ -137,19 +137,21 @@ exports.confirmAccount = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
     let jsonObj = req.body;
-    if (jsonObj.new_password != jsonObj.confirm_new_password) {
-        res.status(409).send({ "message": "Passwords are not identical" });
+    userExist = await users.exists({ email: req.body.email });
+    if (userExist) {
+        res.status(409).json({
+            message: "There is no any registered user with that email",
+        });
     } else {
-        await users.findOne({ email: jsonObj.email }).then(async () => {
+        if (jsonObj.new_password != jsonObj.confirm_new_password) {
+            res.status(409).send({ "message": "Passwords are not identical" });
+        } else {
             await users.findOneAndUpdate({ email: jsonObj.email }, { password: bcrypt.hashSync(jsonObj.new_password, 8) }).then(() => {
                 res.status(204).send()
             }).catch((error) => res.status(500).json({
                 message: "Ooops! Something went wrong when getting user from DB",
                 error
             }));
-        }).catch((error) => res.status(500).json({
-            message: "There is no any registered user with that email",
-            error
-        }))
+        }
     }
 }
