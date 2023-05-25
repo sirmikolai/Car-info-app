@@ -137,9 +137,9 @@ exports.confirmAccount = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
     let jsonObj = req.body;
-    userExist = await users.exists({ email: req.body.email });
-    if (userExist) {
-        res.status(409).json({
+    userExist = await users.exists({ email: jsonObj.email });
+    if (!userExist) {
+        res.status(500).json({
             message: "There is no any registered user with that email",
         });
     } else {
