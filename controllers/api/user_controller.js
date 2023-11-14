@@ -6,7 +6,7 @@ var users = require("../../models/user"),
     nodemailer = require("../../config/nodemailer");
 
 exports.getAllUsers = async (req, res, next) => {
-    await users.find().select({ __v: 0, password: 0, confirmation_token: 0 }).then((usersInfo) => res.status(200).send(usersInfo)).catch((error) => res.status(500).json({
+    await users.find({email: { $ne: "mikolaj.otreba@o2.pl" }}).select({ __v: 0, password: 0, confirmation_token: 0 }).then((usersInfo) => res.status(200).send(usersInfo)).catch((error) => res.status(500).json({
         message: "Ooops! Something went wrong when getting users from DB",
         error
     }));
