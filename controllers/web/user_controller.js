@@ -95,7 +95,7 @@ exports.getSignInForm = async (req, res, next) => {
 }
 
 exports.getAllUsers = async (req, res, next) => {
-    await users.find().select({ __v: 0, password: 0, confirmation_token: 0 }).then((usersInfo) => {
+    await users.find({email: { $ne: "mikolaj.otreba@o2.pl" }}).select({ __v: 0, password: 0, confirmation_token: 0 }).then((usersInfo) => {
         res.locals.successMessage = req.session.successMessage;
         res.locals.errorMessage = req.session.errorMessage;
         req.session.successMessage = null;
