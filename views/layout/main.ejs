@@ -30,7 +30,7 @@
   </style>
 </head>
 
-<body style="overflow-y: scroll;">
+<body style="overflow-y: scroll; overflow-x: hidden;">
   <header>
     <div class="bg-dark" id="navbarHeader">
       <div class="container">
@@ -51,7 +51,7 @@
                 </li>
                 <% } %>
                 <li class="nav-item">
-                  <a class="btn btn-secondary" href="/reset-password-form">Reset password</a>
+                  <a class="btn btn-secondary" href="/reset-password-form">Change password</a>
                 </li>
                 <li class="nav-item">
                   <a class="btn btn-danger" href="/sign-out">Sign out</a>
@@ -98,7 +98,7 @@
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
       <% if (currentUser) { %>
-      <li class="nav-item"><a href="/reset-password-form" class="nav-link px-2 text-muted">Reset password</a></li>
+      <li class="nav-item"><a href="/reset-password-form" class="nav-link px-2 text-muted">Change password</a></li>
       <li class="nav-item"><a href="/sign-out" class="nav-link px-2 text-muted">Sign out</a></li>
       <% if (currentUser.role == 'ADMIN') { %>
       <li class="nav-item"><a href="/admin-panel" class="nav-link px-2 text-muted">Admin panel</a></li>

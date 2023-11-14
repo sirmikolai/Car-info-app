@@ -37,7 +37,7 @@ exports.signOut = function (req, res, next) {
 exports.signUp = async (req, res, next) => {
     userExist = await users.exists({email: req.body.email});
     if (userExist) {
-        req.session.errorMessage = "There is already registered user with that email";
+        req.session.errorMessage = "There is already registered user with that email!";
         return res.redirect('/sign-up-form');
     } else {
         let token = jwt.sign({ email: req.body.email }, config.secret);
@@ -66,7 +66,7 @@ exports.confirmToken = async (req, res, next) => {
         active: true,
         confirmation_code: ""
     }).then(() => {
-        req.session.successMessage = "Your account has been activated! Now, you can sign in";
+        req.session.successMessage = "Your account has been activated! Now, you can sign in.";
         res.redirect("/")
     }).catch((error) => {
         next(error);
@@ -132,13 +132,16 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 exports.getResetPasswordForm = async (req, res, next) => {
+    res.locals.successMessage = req.session.successMessage;
+    res.locals.errorMessage = req.session.errorMessage;
+    req.session.successMessage = null;
+    req.session.errorMessage = null;
     res.render("authentication/reset-password");
 }
 
 exports.resetPassword = async (req, res, next) => {
     let id = req.params.id;
     await users.findById({ _id: id }).then(async (userInfo) => {
-        console.log("test");
         if (bcrypt.compareSync(req.body.current_password, userInfo.password)) {
             console.log("test");
             if (req.body.new_password == req.body.password_confirmation) {
@@ -147,9 +150,11 @@ exports.resetPassword = async (req, res, next) => {
                     req.session.successMessage = "Your password has been changed."
                     res.redirect("/");
                 })
-            } else {
-                
             }
+        }
+        else {
+            req.session.errorMessage = "Incorrect current password!";
+            res.redirect("/reset-password-form")
         }
     }).catch((error) => {
         next(error);

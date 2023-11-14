@@ -21,10 +21,10 @@ module.exports = function (app) {
     }, async (email, password, done) => {
         await users.findOne({ email: email }).then((userInfo) => {
             if (!userInfo) {
-                return done(null, false, { reason: 1, message: "Invalid email address."});
+                return done(null, false, { reason: 1, message: "Invalid credentials."});
             }
             if (!bcrypt.compareSync(password, userInfo.password)) {
-                return done(null, false, { reason: 2, message: "Invalid password."});
+                return done(null, false, { reason: 2, message: "Invalid credentials."});
             }
             if (userInfo.active == false) {
                 return done(null, false, { reason: 3, message: "You need to activate your account before signing in."});
