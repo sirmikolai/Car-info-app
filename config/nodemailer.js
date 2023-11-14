@@ -1,12 +1,12 @@
 var nodemailer = require("nodemailer"),
-    userMail = "qwerty123@malio.pl";
+    userMail = "orvdkrqp@mailosaur.net";
 
 let selfSignedConfig = {
-    host: 't.pl',
-    port: 465,
+    host: 'smtp.mailosaur.net',
+    port: 587,
     secure: true,
     auth: {
-        user: userMail, pass: 'test'
+        user: userMail, pass: 'NolVDhhZ0aabeTQitsFuoADlkhsNbflK'
     },
     tls: {
         rejectUnauthorized: false
