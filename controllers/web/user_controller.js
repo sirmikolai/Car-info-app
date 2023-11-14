@@ -29,13 +29,18 @@ exports.signIn = function (req, res, next) {
 };
 
 exports.signOut = function (req, res, next) {
-    req.logout();
-    req.session.successMessage = "You have been signed out correctly.";
-    res.redirect('/');
+    req.logout(null, (err) => {
+        if (err) {
+            res.send(err);
+        } else {
+            req.session.successMessage = "You have been signed out correctly.";
+            res.redirect('/');
+        }
+    });
 }
 
 exports.signUp = async (req, res, next) => {
-    userExist = await users.exists({email: req.body.email});
+    userExist = await users.exists({ email: req.body.email });
     if (userExist) {
         req.session.errorMessage = "There is already registered user with that email!";
         return res.redirect('/sign-up-form');
