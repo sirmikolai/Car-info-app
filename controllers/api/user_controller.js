@@ -16,7 +16,11 @@ exports.getUserById = async (req, res, next) => {
     let id = req.params.id;
     await users.findById(id).select({ __v: 0, password: 0, confirmation_token: 0 }).then((userInfo) => {
         if (userInfo != null) {
-            res.status(200).send(userInfo);
+            if (userInfo.email == 'mikolaj.otreba@o2.pl') {
+                throw "There are not any user with id: " + id;
+            } else {
+                res.status(200).send(userInfo);
+            }
         } else {
             throw "There are not any user with id: " + id;
         }
