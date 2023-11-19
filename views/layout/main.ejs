@@ -77,7 +77,9 @@
     <div class="row py-lg-2">
       <div class="col-lg-10 mx-auto">
         <div class="alert alert-danger" role="alert">
-          <strong>Error!</strong> <%= errorMessage %>
+          <div class="alert-text">
+            <span><strong>Error! </strong><%= errorMessage %></span>
+          </div>
         </div>
       </div>
     </div>
@@ -86,7 +88,9 @@
     <div class="row py-lg-2">
       <div class="col-lg-10 mx-auto">
         <div class="alert alert-success" role="alert">
-          <strong>Success!</strong> <%= successMessage %>
+          <div class="alert-text">
+            <span><strong>Success! </strong><%= successMessage %></span>
+          </div>
         </div>
       </div>
     </div>
