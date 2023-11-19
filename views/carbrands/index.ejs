@@ -32,7 +32,7 @@
                 <a href="/car-brand/<%= carBrands[i]._id %>/car-models" class="btn btn-sm btn-success">View car models</a>
                 <% if (currentUser) { %>
                 <a href="/car-brand/edit-form/<%= carBrands[i]._id %>" class="btn btn-sm btn-primary">Edit car brand</a>
-                <a href="/car-brand/delete/<%= carBrands[i]._id %>" class="btn btn-sm btn-danger" >Delete car brand</a>
+                <a href="/car-brand/delete/<%= carBrands[i]._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Do you want delete this car brand?');">Delete car brand</a>
                 <% } %>
               </div>
             </div>
