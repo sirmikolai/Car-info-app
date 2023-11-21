@@ -62,7 +62,7 @@ Aplikacja będzie dostępna na porcie 3000.
 [How to run?](#how-to-run)
 
 # Description:
-Car-info-app is an original, simple web application created for my master's thesis titled "Analysis and Comparison of Selected Frameworks for Automated Testing of Applications Using the Java Language." The application is accessible at the provided link [LINK](https://car-info-app.onrender.com/) (sometimes you may need to wait a moment after entering the page for the server to start; typically, this takes about a minute).
+Car-info-app is an original, simple web application created for my master's thesis titled `The comparative analysis of selected frameworks for automatic testing of web applications using Java programming language`. The application is accessible at the provided link [LINK](https://car-info-app.onrender.com/) (sometimes you may need to wait a moment after entering the page for the server to start; typically, this takes about a minute).
 
 The application was used to develop automated tests for the functionalities utilized in this system.
 
