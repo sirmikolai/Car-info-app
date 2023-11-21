@@ -10,7 +10,7 @@
 [Opis](#opis)
 [Funkcjonalności](#funkcjonalności)
 [Użyte technologie](#użyte-technologie)
-[Jak uruchomić?](#jak-uruchomić?)
+[Jak uruchomić?](#jak-uruchomić)
 
 # Opis:
 Car-info-app to autorska prosta aplikacja internetowa, przygotowana na potrzebny mojej pracy magisterskiej pt. `Analiza i porównanie wybranych frameworków do testowania automatycznego aplikacji przy użyciu języka Java`. Aplikacja jest dostępna na podanym adresie [LINK](https://car-info-app.onrender.com/) (czasami trzeba chwilę poczekać po wejściu na stronę zanim serwer się uruchomi, zwykle trwa to około minuty).
@@ -59,7 +59,7 @@ Aplikacja będzie dostępna na porcie 3000.
 [Description](#description)
 [Functionalities](#functionalities)
 [Technologies used](#technologies-used)
-[How to run?](#how-to-run?)
+[How to run?](#how-to-run)
 
 # Description:
 Car-info-app is an original, simple web application created for my master's thesis titled "Analysis and Comparison of Selected Frameworks for Automated Testing of Applications Using the Java Language." The application is accessible at the provided link [LINK](https://car-info-app.onrender.com/) (sometimes you may need to wait a moment after entering the page for the server to start; typically, this takes about a minute).
