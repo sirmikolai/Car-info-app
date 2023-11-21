@@ -41,7 +41,7 @@ Ponadto przedstawione funkcjonalności są dostępne z poziomu API.
 ```
 
 # Jak uruchomić?
-Jeśli nie masz zainstalowanego Node Package Manager (npm) na swoim komputerze, należy go pobrać i zainstalować z podanej strony internetowej https://www.npmjs.com/.
+Jeśli nie masz zainstalowanego Node Package Manager (npm) na swoim komputerze, to należy go pobrać i zainstalować z podanej strony internetowej https://www.npmjs.com/.
 
 
 Następne kroki:
