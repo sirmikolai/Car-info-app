@@ -55,7 +55,7 @@ Aplikacja będzie dostępna na porcie 3000.
 
 # English
 
-## Spis treści:
+## Table of Contents:
 [Description](#description)
 [Functionalities](#functionalities)
 [Technologies used](#technologies-used)
